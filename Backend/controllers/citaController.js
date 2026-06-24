@@ -2,7 +2,7 @@
 const CitaRepository = require('../repository/citaRepository');
 const repo = new CitaRepository();
 
-// Ruta: POST /api/citas/reservar
+
 function reservarCita(req, res) {
     const { paciente, doctor, fecha, hora } = req.body;
 
