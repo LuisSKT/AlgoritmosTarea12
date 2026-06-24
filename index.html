@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hospital SJL - Citas Médicas</title>
+	<link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+	<!--  INICIO DE SESIÓN -->
+	<section id="pantalla-login" class="pantalla pantalla-activa">
+
+		<div class="login-contenedor">
+
+			<div class="login-formulario">
+				<h1>HOSPITAL SJL</h1>
+
+				<label for="usuario">Usuario</label>
+				<input type="text" id="usuario">
+
+				<label for="password">Password</label>
+				<input type="password" id="password">
+
+				<button class="btn-login" onclick="iniciarSesion()">Ingrese</button>
+
+				<a href="#" onclick="mostrarMensaje('Registro en desarrollo')">Regístrese</a>
+			</div>
+
+			<div class="login-imagen">
+				<div class="logo-hospital">
+					<div class="icono-logo">🗓️🩺</div>
+					<h2>CITA MÉDICA</h2>
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+
+
+	<!--PANTALLA GENERAL DEL SISTEMA -->
+	<section id="pantalla-sistema" class="pantalla">
+
+		<div class="ventana">
+
+			<div class="barra-ventana">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+
+			<header class="navbar">
+				<div class="logo-menu">
+					<div class="logo-pequeno">🗓️</div>
+					<span>CITA MÉDICA</span>
+				</div>
+
+				<nav>
+					<button onclick="mostrarModulo('lamport')">Algoritmo Lamport</button>
+					<button onclick="mostrarModulo('cristian')">Algoritmo Cristian</button>
+					<button onclick="cerrarSesion()">Cerrar Sesión</button>
+				</nav>
+			</header>
+
+
+			<!-- ALGORITMO INICIAL: LAMPORT -->
+			<main id="modulo-lamport" class="modulo modulo-activo">
+
+				<h1 class="titulo">RESERVA LA CITA MÉDICA</h1>
+				<p class="descripcion">
+					Algoritmo inicial: controla la reserva cuando varios pacientes intentan elegir el mismo horario.
+				</p>
+
+				<div class="tarjeta-reserva">
+
+					<div class="formulario-cita">
+
+						<label for="lamportPaciente">Nombre del paciente:</label>
+						<input type="text" id="lamportPaciente">
+
+						<label for="lamportDoctor">Doctor disponible:</label>
+						<select id="lamportDoctor">
+							<option value="">Seleccione...</option>
+							<option>Dr. Carlos Medina</option>
+							<option>Dra. Ana Torres</option>
+							<option>Dr. Luis Ramírez</option>
+						</select>
+
+						<label for="lamportFecha">Fecha:</label>
+						<input type="date" id="lamportFecha">
+
+						<label for="lamportHora">Hora:</label>
+						<select id="lamportHora">
+							<option value="">Disponibles...</option>
+							<option>08:00 AM</option>
+							<option>09:00 AM</option>
+							<option>10:00 AM</option>
+							<option>11:00 AM</option>
+						</select>
+
+						<div class="grupo-botones">
+							<button class="btn-reservar" type="button" onclick="ejecutarLamport()">Reservar</button>
+							<button class="btn-reservar" type="button"
+								onclick="atenderPacienteLamport()">Atendido</button>
+							<button class="btn-reservar" type="button" onclick="limpiarLamport()">Limpiar tabla</button>
+						</div>
+
+					</div>
+
+					<div class="caja-algoritmo caja-lamport">
+
+						<h2>Algoritmo Lamport</h2>
+
+						<div id="lamportVacio" class="mensaje-vacio">
+							<p>Complete los datos y presione reservar.</p>
+						</div>
+
+						<div id="lamportResultado" class="resultado oculto">
+
+							<h3>Resultado de reserva</h3>
+
+							<div class="tickets">
+								<div class="ticket ticket-principal">
+									<p>Paciente actual</p>
+									<strong id="ticketActual">#--</strong>
+								</div>
+
+								<div class="ticket">
+									<p>Siguiente paciente</p>
+									<strong id="ticketOtro">#--</strong>
+								</div>
+							</div>
+
+							<div class="mensaje-exito">
+								<p id="mensajeLamport">Resultado pendiente</p>
+							</div>
+
+							<table>
+								<thead>
+									<tr>
+										<th>Proceso</th>
+										<th>Paciente</th>
+										<th>Ticket</th>
+										<th>Estado</th>
+									</tr>
+								</thead>
+								<tbody id="tablaLamport"></tbody>
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</main>
+
+
+			<!-- ALGORITMO MEJORADO: CRISTIAN -->
+			<main id="modulo-cristian" class="modulo">
+
+				<h1 class="titulo">RESERVA SU CITA MÉDICA</h1>
+				<p class="descripcion">
+					Algoritmo mejorado: sincroniza la hora del paciente con la hora oficial del servidor.
+				</p>
+
+				<div class="tarjeta-reserva">
+
+					<div class="formulario-cita">
+
+						<label for="cristianPaciente">Nombre del paciente:</label>
+						<input type="text" id="cristianPaciente">
+
+						<label for="cristianDoctor">Doctor disponible:</label>
+						<select id="cristianDoctor">
+							<option value="">Seleccione...</option>
+							<option>Dr. Carlos Medina</option>
+							<option>Dra. Ana Torres</option>
+							<option>Dr. Luis Ramírez</option>
+						</select>
+
+						<label for="cristianFecha">Fecha:</label>
+						<input type="date" id="cristianFecha">
+
+						<label for="cristianHora">Hora:</label>
+						<select id="cristianHora">
+							<option value="">Disponibles...</option>
+							<option>08:00 AM</option>
+							<option>09:00 AM</option>
+							<option>10:00 AM</option>
+							<option>11:00 AM</option>
+						</select>
+
+						<button class="btn-reservar" onclick="ejecutarCristian()">Reservar</button>
+						<button class="btn-reservar" type="button" onclick="limpiarDatosCristian()">Limpiar datos</button>
+
+					</div>
+
+					<div class="caja-algoritmo caja-cristian">
+
+						<h2>Algoritmo Cristian</h2>
+
+						<div id="cristianVacio" class="mensaje-vacio">
+							<p>Complete los datos y presione sincronizar.</p>
+						</div>
+
+						<div id="cristianResultado" class="resultado oculto">
+
+							<h3>Resultado de sincronización</h3>
+
+							<div class="tiempos">
+								<div class="tiempo">
+									<p>Hora cliente</p>
+									<strong id="horaCliente">--:--:--</strong>
+								</div>
+
+								<div class="tiempo">
+									<p>Hora servidor</p>
+									<strong id="horaServidor">--:--:--</strong>
+								</div>
+
+								<div class="tiempo">
+									<p>Latencia</p>
+									<strong id="latencia">-- ms</strong>
+								</div>
+							</div>
+
+							<div class="mensaje-exito">
+								<p>Hora final sincronizada:</p>
+								<h3 id="horaFinal">--:--:--</h3>
+							</div>
+
+							<table>
+								<thead>
+									<tr>
+										<th>Dato</th>
+										<th>Valor</th>
+									</tr>
+								</thead>
+								<tbody id="tablaCristian"></tbody>
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</main>
+
+		</div>
+
+	</section>
+
+
+	<!-- MENSAJE EMERGENTE -->
+	<div id="toast" class="toast">Mensaje</div>
+
+	<script src="logica.js"></script>
+</body>
+
+</html>
